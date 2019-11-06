@@ -91,7 +91,7 @@
     <h2 class="card-header">Activity Record</h2>
 
     <div class="card-body">
-      <h3> {{ totalRecords }} records:</h3>
+      <h3> {{ numberOfRecords }} records:</h3>
 
       <div id="records">
         <table class="table">
@@ -103,7 +103,7 @@
             <th>Completed?</th>
             <th>Notes</th>
           </tr>
-          <tr v-for="record in records">
+          <tr v-for="record in records" v-bind:class="record.type">
               <!-- cycles through everything in the record array, putting all object parts in the table cells. -->
             <td>{{record.time}}</td>
             <td>{{record.length | twoPlaces}}</td>
@@ -167,8 +167,7 @@
       newNote: "",
       activity: "Work On Comic",
       records: [],
-      errors: [],
-      totalRecords: 0
+      errors: []
     },
     methods: {
       addRecord() {
@@ -227,7 +226,7 @@
     }, 
     computed: {
       numberOfRecords: function() {
-        totalRecords = records.length
+        return this.records.length
       },
       desplayHours: function () {
         //adds all hours of each activity together.

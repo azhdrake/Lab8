@@ -12,3 +12,24 @@ td{
 	vertical-align: top;
 	width: 50%;
 }
+
+.Thumbnailing {
+  background-color: aquamarine;
+}
+
+.Lining {
+  background-color: grey;
+}
+
+.Coloring {
+  background-color: yellow;
+}
+
+.Writing {
+  background-color: blue;
+}
+
+.Editing {
+  background-color: lawngreen;
+}
+
