@@ -2,228 +2,241 @@
 <html>
 
 <head>
-    <title>Practice Tracker</title>
-    <script src="https://unpkg.com/vue@2.6.7/dist/vue.js"></script>
+  <title>Practice Tracker</title>
+  <script src="https://unpkg.com/vue@2.6.7/dist/vue.js"></script>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="practice_style.css" type="text/css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous">
+  <link rel="stylesheet" href="practice_style.css" type="text/css">
 </head>
 
 <body>
-    <div id="app">
+  <div id="app">
 
-        <!-- TODO change header text to include name of activity -->
-        <h1 class="text-center">{{ activity }} Time Tracker</h1>
+  <h1 class="text-center">{{ activity }} Time Tracker</h1>
 
-        <div id="add-hours" class="card">
+  <div id="add-hours" class="card">
 
-            <h2 class="card-header">Add Hours</h2>
-            <div class="card-body">
+  <h2 class="card-header">Add Hours</h2>
+    <div class="card-body">
 
-                <form>
-					<div class="alert alert-danger" v-show="errors.length > 0">
-						<li v-for="error in errors"> {{ error }} </li>
-					</div>
-					<table>
-					<tr><td rowspan="2">
-						<div class="form-group">
-							<!-- TODO change label message to include name of activity -->
-							<label class="form-label" for="when">When did you {{ activity.toLowerCase() }}?</label>
-							<!-- TODO v-model to app data property -->
-							<input id="when" class="form-control" type="date" v-model="newTime">
-						</div>
-						<div class="form-group">
-							<label class="form-label" for="howLong">How long did you {{ activity.toLowerCase() }}?</label>
-							<!-- TODO v-model to app data property -->
-							<input id="howLong" class="form-control" v-model.trim="newLength">
-						</div>
-					</td><td>
-						<div class="form-group">
-							<label class="form-label" for="type">What did you do?</label>
-							<select class="form-select" name="type" v-model="newType">
-								<option value="Thumbnailing">Thumbnailing</option>
-								<option value="Lining">Lining</option>
-								<option value="Coloring">Coloring</option>
-								<option value="Writing">Writing</option>
-								<option value="Editing">Editing</option>
-							<!-- TODO create a select. v-model type -->
-							<!-- TODO create one option for each type  -->
-							</select>
-						</div>
-						<div class="form-check-inline">
-							<!-- TODO v-model, v-bind value -->
-							<input id="traditional" class="form-check-input" type="radio" name="traDig" value="traditional" v-model="newTraDig">
-							<label class="form-check-label" for="traditional">Traditional</label>
-						</div>
-						<div class="form-check-inline">
-							<!-- TODO v-model, v-bind value -->
-							<input id="digital" class="form-check-input" type="radio" name="traDig" value="digital" v-model="newTraDig">
-							<label class="form-check-label" for="digital">Digital</label>
-						</div>
-						</td></tr><tr><td>
-							<label for="complete" class="form-label">Completed Task
-							<input id="complete" type="checkbox" v-model="newComplete">
-					</td></tr>
-					</table>
-					<div class="form-check-inline">
-							<label class="form-label" for="note">Details:</label>
-							<input id="note" class="form-control" name="note" v-model.trim="newNote">
-						</div>
-                    <div>
-                        <!-- TODO v-on click event -->
-                        <button class="btn btn-primary mt-2" type="button" v-on:click.prevent="addRecord">Add record</button>
-                    </div>
-
-                </form>
+      <form>
+      <div class="alert alert-danger" v-show="errors.length > 0">
+      <li v-for="error in errors"> {{ error }} </li>
+      </div>
+        <table>
+          <tr><td rowspan="2">
+          <div class="form-group">
+            <label class="form-label" for="when">When did you {{ activity.toLowerCase() }}?</label>
+            <input id="when" class="form-control" type="date" v-model="newTime">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="howLong">
+              How long did you {{ activity.toLowerCase() }}?
+            </label>
+            <input id="howLong" class="form-control" v-model.trim="newLength">
+          </div>
+          </td>
+          <td>
+            <div class="form-group">
+              <label class="form-label" for="type">
+                What did you do?
+              </label>
+              <select class="form-select" name="type" v-model="newType">
+                <option value="Thumbnailing">
+                  Thumbnailing
+                </option>
+                <option value="Lining">
+                  Lining
+                </option>
+                <option value="Coloring">
+                  Coloring
+                </option>
+                <option value="Writing">
+                  Writing
+                </option>
+                <option value="Editing">
+                  Editing
+                </option>
+              </select>
             </div>
+            <div class="form-check-inline">
+              <input id="traditional" class="form-check-input" type="radio" name="traDig" value="traditional" v-model="newTraDig">
+              <label class="form-check-label" for="traditional">Traditional</label>
+            </div>
+            <div class="form-check-inline">
+              <input id="digital" class="form-check-input" type="radio" name="traDig" value="digital" v-model="newTraDig">
+              <label class="form-check-label" for="digital">Digital</label>
+            </div>
+          </td></tr>
+          <tr><td>
+            <label for="complete" class="form-label">Completed Task</label>
+            <input id="complete" type="checkbox" v-model="newComplete">
+          </td>
+          </tr>
+        </table>
+        <div class="form-check-inline">
+          <label class="form-label" for="note">Details:</label>
+          <input id="note" class="form-control" name="note" v-model.trim="newNote">
+        </div>
+        <div>
+          <button class="btn btn-primary mt-2" type="button" v-on:click.prevent="addRecord">Add record</button>
         </div>
 
-        <div class="card">
-            <h2 class="card-header">Activity Record</h2>
-
-            <div class="card-body">
-                <!-- TODO display the number of records  -->
-                <h3> TODO how many records?</h3>
-
-                <div id="records">
-                    <table class="table">
-                        <tr>
-                            <th>When</th>
-                            <th>How long?</th>
-                            <th>Type</th>
-                            <th>Digital or traditional?</th>
-							<th>Completed?</th>
-							<th>Notes</th>
-                        </tr>
-						<tr v-for="record in records">
-							<td>{{record.time}}</td>
-							<td>{{record.length | twoPlaces}}</td>
-							<td>{{record.type}}</td>
-							<td>{{record.traDig}}</td>
-							<td>{{record.complete}}</td>
-							<td>{{record.note | desplayForty}}</td>
-						</tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="card">
-            <h2 class="card-header">Summary</h2>
-
-            <div class="card-body">
-                <!-- TODO use computed property to display total hours -->
-                <p>You have practiced a total of {{desplayHours | twoPlaces}} hours, broken down as follows:</p>
-                
-                <!-- TODO computed property to display total for each type  -->
-                <table>
-                  <tr>
-                    <td>
-                      Thumbnailing: {{hoursOfActivity("Thumbnailing") | twoPlaces}}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Lining: {{hoursOfActivity("Lining") | twoPlaces}}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Coloring: {{hoursOfActivity("Coloring") | twoPlaces}}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Writing: {{hoursOfActivity("Writing") | twoPlaces}}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Editing: {{hoursOfActivity("Editing") | twoPlaces}}
-                    </td>
-                  </td>
-                </table>
-                
-            </div>
-        </div>
-
+      </form>
     </div>
+  </div>
 
-    <script>
+  <div class="card">
+    <h2 class="card-header">Activity Record</h2>
 
-      let app = new Vue({
-        el: "#app",
-        data: {
-          newTime: "",
-          newLength: "",
-          newType: "",
-          newTraDig: "",
-          newComplete: false,
-          newNote: "",
-          activity: "Work On Comic",
-          records: [],
-          errors: []
-        },
-        methods: {
-          addRecord() {
-            if (!this.newTime) {
-              this.errors.push("Please include a date.")
-            }
-            if (!this.newLength) {
-              this.errors.push("Please include how long you were working.")
-            }
-            if (!this.newType) {
-              this.errors.push("Please input what you did.")
-            }
-            if (!this.newTraDig) {
-              this.errors.push("Please indicate whether you did this digitally or traditionally.")
-            }
-            if (this.newTime && this.newLength && this.newType && this.newTraDig) {
-              let record = { time: this.newTime, length: this.newLength, type: this.newType, traDig: this.newTraDig, complete: this.newComplete, note: this.newNote }
-              this.records.push(record)
-              this.errors = []
-              this.newTime = ""
-              this.newLength = ""
-              this.newType = ""
-              this.newTraDig = ""
-              this.newComplete = false
-              this.newNote = ""
-            }
-          },
-          hoursOfActivity: function(activity) {
-            let totalHours = 0
-            this.records.forEach(function (record) {
-              if (record.type == activity) {
-                totalHours += Number.parseFloat(record.length)
-              }
-            })
-            return totalHours
-          }
-        },
-        filters: {
-          desplayForty: function(note) {
-            if (note.length > 40) {
-              return note.substr(0,40)
-            }
-          },
-          twoPlaces: function (hours) {
-            return Number.parseFloat(hours).toFixed(2)
-          }
-        }, 
-        computed: {
-          desplayHours: function () {
-            let totalHours = 0
-            this.records.forEach(function (record) {
-              totalHours += Number.parseFloat(record.length)
-            })
-            return totalHours
-          }
+    <div class="card-body">
+    <h3> TODO how many records?</h3>
+
+      <div id="records">
+        <table class="table">
+          <tr>
+            <th>When</th>
+            <th>How long?</th>
+            <th>Type</th>
+            <th>Digital or traditional?</th>
+            <th>Completed?</th>
+            <th>Notes</th>
+          </tr>
+          <tr v-for="record in records">
+              <!-- cycles through everything in the record array, putting all object parts in the table cells. -->
+            <td>{{record.time}}</td>
+            <td>{{record.length | twoPlaces}}</td>
+            <td>{{record.type}}</td>
+            <td>{{record.traDig}}</td>
+            <td>{{record.complete}}</td>
+            <td>{{record.note | desplayForty}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="card">
+    <h2 class="card-header">Summary</h2>
+
+    <div class="card-body">
+    <p>You have practiced a total of {{desplayHours | twoPlaces}} hours, broken down as follows:</p>            
+      <table>
+        <tr>
+          <td>
+            Thumbnailing: {{hoursOfActivity("Thumbnailing") | twoPlaces}}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Lining: {{hoursOfActivity("Lining") | twoPlaces}}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Coloring: {{hoursOfActivity("Coloring") | twoPlaces}}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Writing: {{hoursOfActivity("Writing") | twoPlaces}}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Editing: {{hoursOfActivity("Editing") | twoPlaces}}
+          </td>
+        </tr>
+      </table>        
+    </div>
+  </div>
+  </div>
+
+<script>
+
+  let app = new Vue({
+    el: "#app",
+    data: {
+      newTime: "",
+      newLength: "",
+      newType: "",
+      newTraDig: "",
+      newComplete: false,
+      newNote: "",
+      activity: "Work On Comic",
+      records: [],
+      errors: []
+    },
+    methods: {
+      addRecord() {
+        //validates that all nessisary data is present and then pushes reccord/errors as nessisary.
+        if (!this.newTime) {
+          this.errors.push("Please include a date.")
         }
-		})
+        if (!this.newLength) {
+          this.errors.push("Please include how long you were working.")
+        }
+        if (!this.newType) {
+          this.errors.push("Please input what you did.")
+        }
+        if (!this.newTraDig) {
+          this.errors.push("Please indicate whether you did this digitally or traditionally.")
+        }
+        if (this.newTime && this.newLength && this.newType && this.newTraDig) {
+          let record = {
+            time: this.newTime,
+            length: this.newLength,
+            type: this.newType,
+            traDig: this.newTraDig,
+            complete: this.newComplete,
+            note: this.newNote
+          }
+          this.records.push(record)
+          this.errors = []
+          this.newTime = ""
+          this.newLength = ""
+          this.newType = ""
+          this.newTraDig = ""
+          this.newComplete = false
+          this.newNote = ""
+        }
+      },
+      hoursOfActivity: function (activity) {
+        //goes through all records and adds together all time of a given activity.  
+        let totalHours = 0
+        this.records.forEach(function (record) {
+          if (record.type == activity) {
+            totalHours += Number.parseFloat(record.length)
+          }
+        })
+      return totalHours
+      }
+    },
+    filters: {
+      desplayForty: function(note) {
+        if (note.length > 40) {
+          return note.substr(0,40)
+        }
+      },
+      twoPlaces: function (hours) {
+        return Number.parseFloat(hours).toFixed(2)
+      }
+    }, 
+    computed: {
+      desplayHours: function () {
+        //adds all hours of each activity together.
+        let totalHours = 0
+        this.records.forEach(function (record) {
+          totalHours += Number.parseFloat(record.length)
+        })
+        return totalHours
+      }
+    }
+  })
 
-    </script>
+</script>
 
 </body>
 

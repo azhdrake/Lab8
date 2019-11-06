@@ -12,27 +12,26 @@
 <body>
     <div id="app">
 
-        <!-- TODO show error alert -->
-		<div class="alert alert-danger" v-show="errors.length > 0">
-			<li v-for="error in errors"> {{ error }} </li>
-		</div>
+            <!-- Error messages, desplayed from the errors array -->
+		    <div class="alert alert-danger" v-show="errors.length > 0">
+			    <li v-for="error in errors"> {{ error }} </li>
+		    </div>
 
         <div class="card add-student m-2 p-2">
             <form>
                 <h4 class="card-title">Add new student</h4>
-
+                
+                <!-- .trim to eliminate white space, v-model to get the data -->
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <!-- TODO v-model -->
                     <input id="name" class="form-control" v-model.trim="newStudentName">
                 </div>
                 <div class="form-group">
                     <label for="starID">Star ID</label>
-                    <!-- TODO v-model -->
                     <input id="starID" class="form-control" v-model.trim="newStarID">
                 </div>
 
-                <!-- TODO v-on:click event handler -->
+                <!-- .prevent to stop page from refreshing -->
                 <button class="btn btn-primary" v-on:click.prevent="addStudent">Add</button>
             </form>
         </div>
@@ -46,15 +45,18 @@
                         <th>StarID</th>
                         <th>Present?</th>
                     </tr>
+
+                      <!-- loops through students. binds present status to each student as a class. -->
                     <tr v-for="student in students" v-bind:class="'present-'+student.present">
-						<td>{{ student.name }} </td>
-						<td>{{ student.starID }} </td>
-						<td><input type="checkbox" v-model="student.present" v-on:change="checked(student)"></td>
-					</tr>
+				              <td>{{ student.name }} </td>
+				              <td>{{ student.starID }} </td>
+				              <td><input type="checkbox" v-model="student.present" v-on:change="checked(student)"></td>
+			              </tr>
                 </table>
             </div>
         </div>
 
+          <!-- shows the sign in message -->
         <transition name="fade">
             <diV class="alert alert-success" v-if="seeMessage">{{message}} {{mostRecentSignIn}}</div>
         </transition>
@@ -75,7 +77,8 @@
 				seeMessage: false
 				},
 			methods:{
-				addStudent(){
+        addStudent() {
+            //ensures all nesisary data is present, pushes student or error messages as necisa
 					if (!this.newStarID){
 						this.errors.push("StarID is required")
 					} 
@@ -93,12 +96,14 @@
 						this.errors = []
 					}
 				},
-				checked(student){
+        checked(student) {
+            //checks if student is present, sets message as welcome if so, goodbye if not.
 					this.message = student.present ? "Welcome, " : "Goodbye, "
 					this.mostRecentSignIn = student.name
 					this.showMessage()
 				},
-				showMessage(){
+        showMessage() {
+            //shows message for 3 seconds, hides it.
 					this.seeMessage = true
 					setTimeout( () => {
 						this.seeMessage = false
