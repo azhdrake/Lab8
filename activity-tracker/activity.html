@@ -91,7 +91,7 @@
     <h2 class="card-header">Activity Record</h2>
 
     <div class="card-body">
-    <h3> TODO how many records?</h3>
+      <h3> {{ totalRecords }} records:</h3>
 
       <div id="records">
         <table class="table">
@@ -167,7 +167,8 @@
       newNote: "",
       activity: "Work On Comic",
       records: [],
-      errors: []
+      errors: [],
+      totalRecords: 0
     },
     methods: {
       addRecord() {
@@ -225,6 +226,9 @@
       }
     }, 
     computed: {
+      numberOfRecords: function() {
+        totalRecords = records.length
+      },
       desplayHours: function () {
         //adds all hours of each activity together.
         let totalHours = 0
